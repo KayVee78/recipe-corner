@@ -1,0 +1,12 @@
+initialize the project -> npx create-next-app@latest .
+npm i
+start the app -> npm run dev
+
+
+
+To avoid the crash in adding to git repo
+1) Create the main folder
+2) Create the two sub folders for backend and frontend
+3) Create a blank file inside backend folder
+4) Run -> git init, git remote add origin (from the main folder)
+5) Got to the frontend folder and set it up
