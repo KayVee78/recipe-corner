@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   --bg: #218c74;
   --bgSoft: #450f78;
@@ -5,9 +9,9 @@
   --textSoft: #f0f3f5;
   --btnPurple: #c77dff;
   --btnBlue: #2d79e2;
-  --otherBtn: #c6d2d1;
+  --otherBtn: #adadad;
   --headingTextColor: #0F3E38;
-  --randomText: #d3e54b
+  --randomText: #FFFF00
 }
 
 * {
@@ -30,8 +34,8 @@ a {
 .container {
   width: 1536px;
   margin: auto;
-  padding-left: 50px;
-  padding-right: 50px;
+  padding-left: 10px;
+  padding-right: 10px;
   min-height: 100vh;
   display: flex;
   flex-direction: column;

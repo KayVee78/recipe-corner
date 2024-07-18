@@ -1,4 +1,5 @@
 "use client";
+
 import { useState } from "react";
 import styles from "./links.module.css";
 import NavLink from "./navLink/navLink";
@@ -6,15 +7,15 @@ import Image from "next/image";
 // import { handleLogout } from "@/lib/actions";
 
 const links = [
-  { title: "HomePage", path: "/" },
-  { title: "RecipeSearch", path: "/search" },
+  { title: "Home Page", path: "/" },
+  { title: "Search Recipes", path: "/recipes" },
 ];
 
 const Links = ({ session }) => {
   const [open, setOpen] = useState(false);
   //Temporary
   const isAdmin = true;
-
+  console.log(open);
   return (
     <div className={styles.container}>
       <div className={styles.links}>
