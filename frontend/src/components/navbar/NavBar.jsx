@@ -12,7 +12,7 @@ const NavBar = async () => {
         RecipeCorner
       </Link>
       <div>
-        <Links session={""} />
+        <Links session={true} />
       </div>
     </div>
   );

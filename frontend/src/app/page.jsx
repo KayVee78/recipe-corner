@@ -29,6 +29,7 @@ const HomePage = () => {
         <h1 className={styles.title}>WHAT TO COOK TODAY?</h1>
         <p className={styles.desc}>
           Discover and share culinary delights with our recipe sharing platform.
+          <br />
           Connect with a community passionate about cooking.
         </p>
         <div className={styles.buttonContainer}>
@@ -38,7 +39,9 @@ const HomePage = () => {
             </button>
           </Link>
           <Link href="/contact">
-            <button className={`${styles.button} ${styles.buttonRegister}`}>Register</button>
+            <button className={`${styles.button} ${styles.buttonRegister}`}>
+              Register
+            </button>
           </Link>
         </div>
         <div className={styles.brands}>

@@ -10,3 +10,12 @@ To avoid the crash in adding to git repo
 3) Create a blank file inside backend folder
 4) Run -> git init, git remote add origin (from the main folder)
 5) Got to the frontend folder and set it up
+
+
+
+--------------------------------------------------Error Underlined Solved--------------------------------------------------
+Add below to .eslintrc.json file
+{
+  "extends": "next", // or "next/core-web-vitals"
+  "parser": "@next/babel-eslint"
+}
