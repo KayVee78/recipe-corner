@@ -1,0 +1,109 @@
+.detailRecipe {
+  flex: 9;
+}
+
+.detailRecipeWrapper {
+  padding: 20px;
+  padding-right: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.recipeImg {
+  width: 100%;
+  height: 300px;
+  border-radius: 5px;
+  object-fit: cover;
+}
+
+.detailRecipeTitle {
+  text-align: center;
+  margin: 10px;
+  font-size: 28px;
+}
+
+.detailRecipeTitleInput {
+  /* margin: 10px; */
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  font-size: 24px;
+  text-align: center;
+  border: 1px solid black;
+  color: black;
+  background-color: rgba(173, 173, 173, 0.6);
+}
+
+.detailRecipeDescInput {
+  border: 1px solid black;
+  color: black;
+  background-color: rgba(173, 173, 173, 0.6);
+  font-size: 18px;
+  line-height: 30px;
+  border-radius: 5px;
+}
+
+.detailRecipeDescInput:focus {
+  outline: none;
+}
+
+.detailRecipeTitleInput:focus {
+  outline: none;
+}
+
+.detailRecipeEdit {
+  float: right;
+  font-size: 16px;
+}
+
+.detailRecipeIcon {
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+/* .detailRecipeIcon:first-child {
+  color: teal;
+}
+
+.detailRecipeIcon:last-child {
+  color: tomato;
+} */
+
+.detailRecipeInfo {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+  font-family: "Varela Round", sans-serif;
+  color: #ffff00;
+}
+
+.detailRecipeDesc {
+  font-size: 16px;
+  line-height: 25px;
+}
+
+/* .detailRecipeDesc::first-letter {
+  margin-left: 20px;
+  font-size: 30px;
+  font-weight: 600;
+} */
+
+.detailRecipeButton {
+  width: 100px;
+  border: none;
+  background-color: #192a56;
+  padding: 5px;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  align-self: flex-end;
+  margin-top: 20px;
+}
+
+.titleHead {
+  margin-top: 13px;
+  font-size: 24px;
+  color: #9efff2;
+  font-weight: bold;
+}

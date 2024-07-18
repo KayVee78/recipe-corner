@@ -3,6 +3,10 @@ npm i
 start the app -> npm run dev
 
 
+npm install @fortawesome/free-regular-svg-icons
+npm install @fortawesome/react-fontawesome
+npm install @fortawesome/free-solid-svg-icons
+
 
 To avoid the crash in adding to git repo
 1) Create the main folder
@@ -11,7 +15,7 @@ To avoid the crash in adding to git repo
 4) Run -> git init, git remote add origin (from the main folder)
 5) Got to the frontend folder and set it up
 
-
+Used Embla Carousel (but uninstalled later)
 
 --------------------------------------------------Error Underlined Solved--------------------------------------------------
 Add below to .eslintrc.json file
