@@ -104,6 +104,7 @@
 .titleHead {
   margin-top: 13px;
   font-size: 24px;
-  color: #9efff2;
+  /* color: #9efff2; */
+  color: #0F3E38;
   font-weight: bold;
 }

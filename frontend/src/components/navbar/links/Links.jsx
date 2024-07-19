@@ -22,18 +22,22 @@ const Links = ({ session }) => {
         {links.map((link) => (
           <NavLink item={link} key={link.title} />
         ))}
-        {session ? (
-          <>
-            {isAdmin && (
-              <NavLink item={{ title: "Create New Post", path: "/newPost" }} />
-            )}
-            <form action={""}>
-              <button className={styles.logout}>Logout</button>
-            </form>
-          </>
-        ) : (
-          <NavLink item={{ title: "Login", path: "/login" }} />
-        )}
+        <>
+          {session ? (
+            <>
+              {isAdmin && (
+                <NavLink
+                  item={{ title: "Create New Post", path: "/newPost" }}
+                />
+              )}
+              <form action={""}>
+                <button className={styles.logout}>Logout</button>
+              </form>
+            </>
+          ) : (
+            <NavLink item={{ title: "Login", path: "/login" }} />
+          )}
+        </>
       </div>
       <Image
         className={styles.menuButton}
