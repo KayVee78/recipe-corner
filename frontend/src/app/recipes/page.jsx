@@ -1,3 +1,5 @@
+"use client"
+
 import RecipeList from "../../components/RecipeList";
 import SearchBar from "../../components/SearchBar";
 
