@@ -25,24 +25,27 @@ const HomePage = () => {
         /> */}
         <ImageSlider slides={slides} />
       </div>
-      <div className={styles.textContainer}>
+      <div style={{ textAlign: "center" }} className={styles.textContainer}>
         <h1 className={styles.title}>WHAT TO COOK TODAY?</h1>
         <p className={styles.desc}>
           Discover and share culinary delights with our recipe sharing platform.
           <br />
           Connect with a community passionate about cooking.
         </p>
-        <div className={styles.buttonContainer}>
-          <Link href="/about">
+        <div
+          style={{ justifyContent: "center" }}
+          className={styles.buttonContainer}
+        >
+          <Link href="/login">
             <button className={`${styles.button} ${styles.buttonLogin}`}>
-              Login
+              Join Now
             </button>
           </Link>
-          <Link href="/contact">
+          {/* <Link href="/contact">
             <button className={`${styles.button} ${styles.buttonRegister}`}>
               Register
             </button>
-          </Link>
+          </Link> */}
         </div>
         <div className={styles.brands}>
           {/* <Image src="/brands.png" alt="" fill className={styles.brandImg} /> */}
