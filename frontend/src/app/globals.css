@@ -4,11 +4,11 @@
 
 :root {
   --bg: #218c74;
-  --bgSoft: #450f78;
+  --bgSoft: rgba(61, 189, 146);
   --text: white;
   --textSoft: #f0f3f5;
   --btnPurple: #c77dff;
-  --btnBlue: #2d79e2;
+  --btnBlue: #03a6c6;
   --otherBtn: #adadad;
   --headingTextColor: #0F3E38;
   --randomText: #FFFF00

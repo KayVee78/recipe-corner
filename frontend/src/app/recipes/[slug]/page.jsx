@@ -63,7 +63,7 @@ const DetailedRecipePage = () => {
         )}
         <div className={styles.detailRecipeInfo}>
           <span className={styles.detailRecipeAuthor}>
-            Author:
+            Recipe by:
             {/* <Link to={`/?user=${post.username}`} className="link"> */}
             <Link href={"/test"} className="link">
               <b> Mary Fernando</b>

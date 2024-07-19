@@ -24,7 +24,7 @@ const RecipeList = () => {
           Description
         </div>
         <div className="flex items-center justify-center">
-          <Link href={`/test`}>
+          <Link href={`/recipes/test`}>
             <button className=" rounded-2xl ring-1 ring-[#9efff2] w-max py-2 px-4 text-xs text-[#fff] hover:bg-[#30CFAC] hover:text-black">
               View Recipe
             </button>
