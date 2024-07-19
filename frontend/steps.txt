@@ -6,6 +6,8 @@ start the app -> npm run dev
 npm install @fortawesome/free-regular-svg-icons
 npm install @fortawesome/react-fontawesome
 npm install @fortawesome/free-solid-svg-icons
+npm install axios
+
 
 
 To avoid the crash in adding to git repo
