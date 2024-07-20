@@ -4,6 +4,11 @@ import { AllExceptionsFilter } from './common/filters/all-exceptions/all-excepti
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.enableCors({
+    origin: process.env.CORS_ORIGIN || '*',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    allowedHeaders: 'Content-Type, Authorization',
+  });
   //registers the exception filter globally
   app.useGlobalFilters(new AllExceptionsFilter());
   await app.listen(8000);

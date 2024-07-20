@@ -27,7 +27,7 @@ export class UsersService {
         .findOne({ username: user.username })
         .exec();
       if (userExists) {
-        throw new ConflictException('Username already exists');
+        throw new ConflictException('Username already exists!');
       }
       const salt = await bcrypt.genSalt(10);
       const hashPass = await bcrypt.hash(user.password, salt);
@@ -44,7 +44,7 @@ export class UsersService {
         // re throwing the  known exception
         throw err;
       }
-      throw new InternalServerErrorException('Error creating user');
+      throw new InternalServerErrorException('Error creating user!');
     }
   }
 
