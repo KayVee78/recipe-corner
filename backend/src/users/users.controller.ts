@@ -17,7 +17,7 @@ import { AllExceptionsFilter } from 'src/common/filters/all-exceptions/all-excep
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Post()
+  @Post('register')
   async create(@Body() user: User): Promise<User> {
     return this.usersService.create(user);
   }
