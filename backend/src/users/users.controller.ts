@@ -9,7 +9,7 @@ import {
   UseFilters,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { User } from './schemas/user.schema';
+import { User, UserWithoutPassword, LoginUser } from './schemas/user.schema';
 import { AllExceptionsFilter } from 'src/common/filters/all-exceptions/all-exceptions.filter';
 
 @Controller('users')
@@ -27,9 +27,9 @@ export class UsersController {
     return this.usersService.findAll();
   }
 
-  @Get(':id')
-  async findOne(@Param('id') id: string): Promise<User> {
-    return this.usersService.findOne(id);
+  @Post('login')
+  async findOne(@Body() user: LoginUser): Promise<UserWithoutPassword> {
+    return this.usersService.findOne(user);
   }
 
   @Put(':id')

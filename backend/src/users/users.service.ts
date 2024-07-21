@@ -3,9 +3,11 @@ import {
   ConflictException,
   Injectable,
   InternalServerErrorException,
+  NotFoundException,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { User } from './schemas/user.schema';
+import { User, UserWithoutPassword, LoginUser } from './schemas/user.schema';
 import { Model } from 'mongoose';
 import * as bcrypt from 'bcrypt';
 
@@ -17,8 +19,31 @@ export class UsersService {
     return await this.userModel.find().exec();
   }
 
-  async findOne(id: string): Promise<User> {
-    return await this.userModel.findById(id).exec();
+  async findOne(user: LoginUser): Promise<UserWithoutPassword> {
+    try {
+      const userFound = await this.userModel
+        .findOne({ username: user.username })
+        .exec();
+
+      if (!userFound) {
+        throw new UnauthorizedException('Invalid Credentials!');
+      }
+
+      const validated = await bcrypt.compare(user.password, userFound.password);
+      if (!validated) {
+        throw new UnauthorizedException('Invalid Credentials!');
+      }
+      const { password, ...result } = userFound.toObject();
+      return result;
+    } catch (err) {
+      console.error('Error logging in:', err);
+      if (err instanceof UnauthorizedException) {
+        throw err;
+      }
+      throw new InternalServerErrorException(
+        'Error logging in. Please try again!',
+      );
+    }
   }
 
   async create(user: User): Promise<User> {
