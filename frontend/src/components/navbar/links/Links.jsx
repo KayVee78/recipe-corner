@@ -10,7 +10,7 @@ import Link from "next/link";
 
 const links = [{ title: "Home Page", path: "/" }];
 
-const Links = ({ session, setSession }) => {
+const Links = ({ session }) => {
   const [open, setOpen] = useState(false);
 
   const handleLogout = () => {
@@ -29,7 +29,7 @@ const Links = ({ session, setSession }) => {
               <NavLink item={{ title: "Create New Post", path: "/newPost" }} />
 
               <button className={styles.logout} onClick={handleLogout}>
-                <Link href={'/login'}>Logout</Link>
+                <Link href={"/login"}>Logout</Link>
               </button>
             </>
           ) : (

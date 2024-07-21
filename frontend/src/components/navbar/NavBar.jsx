@@ -21,7 +21,7 @@ const NavBar = () => {
         RecipeCorner
       </Link>
       <div>
-        <Links session={session} setSession={setSession} />
+        <Links session={session} />
       </div>
     </div>
   );

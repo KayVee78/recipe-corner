@@ -4,9 +4,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSquarePlus } from "@fortawesome/free-regular-svg-icons";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import styles from "./newPost.module.css";
-import useAuth from "@/utils/useAuth";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 const NewPost = () => {
+  const router = useRouter();
+  useEffect(() => {
+    const loggedIn = localStorage.getItem("loggedInUser");
+    if (!loggedIn) {
+      router.push("/login");
+    }
+  }, []);
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>
@@ -40,4 +48,4 @@ const NewPost = () => {
   );
 };
 
-export default useAuth(NewPost);
+export default NewPost;

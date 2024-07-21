@@ -32,12 +32,10 @@ const LoginForm = () => {
       if (response.ok) {
         localStorage.setItem("loggedInUser", JSON.stringify(responseJson));
         window.location.replace("/recipes");
-
       } else {
         setError(true);
         setErrorText(responseJson.message);
       }
-
     } catch (err) {
       console.error(err);
       setError(true);

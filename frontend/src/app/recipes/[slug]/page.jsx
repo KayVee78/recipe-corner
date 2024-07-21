@@ -1,12 +1,13 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-regular-svg-icons";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import styles from "./detailedRecipePage.module.css";
 import useAuth from "@/utils/useAuth";
+import { useRouter } from "next/navigation";
 
 const DetailedRecipePage = () => {
   const [updateMode, setUpdateMode] = useState(false);
@@ -16,6 +17,14 @@ const DetailedRecipePage = () => {
   const [prepTime, setPrepTime] = useState("");
   const [cookTime, setCookTime] = useState("");
   const [ratings, setRatings] = useState("");
+
+  const router = useRouter();
+  useEffect(() => {
+    const loggedIn = localStorage.getItem("loggedInUser");
+    if (!loggedIn) {
+      router.push("/login");
+    }
+  }, []);
 
   const ingredientString =
     "Sliced cheese (our favorite is thick-sliced, medium cheddar),Dill pickle slices,Fresh red onions (or caramelized onions)Tomato,Green leaf or iceberg lettuce,Avocado,Bacon + pineapple + the BBQ sauce below,Jalapeños to add some heat";
@@ -147,4 +156,4 @@ const DetailedRecipePage = () => {
   );
 };
 
-export default useAuth(DetailedRecipePage);
+export default DetailedRecipePage;
