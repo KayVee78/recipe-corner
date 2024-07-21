@@ -5,7 +5,7 @@ npm install @nestjs/config
 
 
 nest generate res users -> create users module for our REST API
-nest generate filter common/filters/all-exceptions
+nest generate filter common/filters/all-exceptions -> to create a custom exception filter
 
 npm start -> start the project
 npm run start:dev -> to start the project (every time we do change this restarts the server)
