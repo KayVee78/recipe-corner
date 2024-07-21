@@ -27,12 +27,11 @@ const RegisterForm = () => {
       );
       if (response.ok) {
         window.location.replace("/login");
-      }
-      const responseJson = await response.json();
-      if (responseJson.statusCode !== 201) {
+      } else {
         setError(true);
         setErrorText(responseJson.message);
       }
+      const responseJson = await response.json();
     } catch (err) {
       setError(true);
     }

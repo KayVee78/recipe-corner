@@ -15,3 +15,5 @@ export class User {
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
+export type UserWithoutPassword = Omit<User, 'password'>;
+export type LoginUser = Omit<User, 'email'>;
