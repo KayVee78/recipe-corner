@@ -4,17 +4,18 @@ import { useState } from "react";
 import styles from "./links.module.css";
 import NavLink from "./navLink/navLink";
 import Image from "next/image";
+import { useRouter } from "next/router";
+import Link from "next/link";
 // import { handleLogout } from "@/lib/actions";
 
-const links = [
-  { title: "Home Page", path: "/" },
-  { title: "Search Recipes", path: "/recipes" },
-];
+const links = [{ title: "Home Page", path: "/" }];
 
-const Links = ({ session }) => {
+const Links = ({ session, setSession }) => {
   const [open, setOpen] = useState(false);
-  //Temporary
-  const isAdmin = true;
+
+  const handleLogout = () => {
+    localStorage.removeItem("loggedInUser");
+  };
   return (
     <div className={styles.container}>
       <div className={styles.links}>
@@ -24,14 +25,12 @@ const Links = ({ session }) => {
         <>
           {session ? (
             <>
-              {isAdmin && (
-                <NavLink
-                  item={{ title: "Create New Post", path: "/newPost" }}
-                />
-              )}
-              <form action={""}>
-                <button className={styles.logout}>Logout</button>
-              </form>
+              <NavLink item={{ title: "Search Recipes", path: "/recipes" }} />
+              <NavLink item={{ title: "Create New Post", path: "/newPost" }} />
+
+              <button className={styles.logout} onClick={handleLogout}>
+                <Link href={'/login'}>Logout</Link>
+              </button>
             </>
           ) : (
             <NavLink item={{ title: "Login", path: "/login" }} />

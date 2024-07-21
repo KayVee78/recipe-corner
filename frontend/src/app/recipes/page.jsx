@@ -1,5 +1,6 @@
-"use client"
+"use client";
 
+import useAuth from "@/utils/useAuth";
 import RecipeList from "../../components/RecipeList";
 import SearchBar from "../../components/SearchBar";
 
@@ -15,4 +16,4 @@ const RecipesPage = () => {
   );
 };
 
-export default RecipesPage;
+export default useAuth(RecipesPage);

@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-regular-svg-icons";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import styles from "./detailedRecipePage.module.css";
+import useAuth from "@/utils/useAuth";
 
 const DetailedRecipePage = () => {
   const [updateMode, setUpdateMode] = useState(false);
@@ -146,4 +147,4 @@ const DetailedRecipePage = () => {
   );
 };
 
-export default DetailedRecipePage;
+export default useAuth(DetailedRecipePage);
