@@ -2,6 +2,9 @@ npm install -g @nestjs/cli
 nest new .
 npm install @nestjs/mongoose mongoose
 npm install @nestjs/config
+npm install multer @nestjs/platform-express
+npm install @types/multer
+
 
 
 nest generate res users -> create users module for our REST API

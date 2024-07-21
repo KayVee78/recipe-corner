@@ -18,6 +18,15 @@ export class RecipePost {
 
   @Prop()
   cookingTime: string;
+
+  @Prop()
+  username: string;
+
+  @Prop()
+  photo: string;
+
+  @Prop()
+  userId: string;
 }
 
 export const PostSchema = SchemaFactory.createForClass(RecipePost);

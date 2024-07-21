@@ -15,14 +15,13 @@ export class PostService {
   ) {}
   async create(post: RecipePost): Promise<RecipePost> {
     try {
-      console.log(post);
-
       if (
         !post.title ||
         !post.ingredients ||
         !post.instructions ||
         !post.preparationTime ||
-        !post.cookingTime
+        !post.cookingTime ||
+        !post.photo
       ) {
         throw new ConflictException('Missing required fields!');
       }
@@ -32,6 +31,9 @@ export class PostService {
         instructions: post.instructions,
         preparationTime: post.preparationTime,
         cookingTime: post.cookingTime,
+        username: post.username,
+        photo: post.photo,
+        userId: post.userId,
       });
       await newPost.save();
       return newPost;
