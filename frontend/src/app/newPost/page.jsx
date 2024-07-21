@@ -1,8 +1,10 @@
+"use client";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSquarePlus } from "@fortawesome/free-regular-svg-icons";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import styles from "./newPost.module.css";
-import Link from "next/link";
+import useAuth from "@/utils/useAuth";
 
 const NewPost = () => {
   return (
@@ -38,4 +40,4 @@ const NewPost = () => {
   );
 };
 
-export default NewPost;
+export default useAuth(NewPost);
