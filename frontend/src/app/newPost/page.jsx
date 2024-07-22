@@ -14,7 +14,7 @@ const NewPost = () => {
   const [preparationTime, setPreparationTime] = useState("");
   const [cookingTime, setCookingTime] = useState("");
   const [file, setFile] = useState(null);
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState("breakfast");
   const [error, setError] = useState(false);
   const [errorText, setErrorText] = useState("");
   const router = useRouter();
@@ -68,7 +68,7 @@ const NewPost = () => {
       );
       const responseJson = await response.json();
       if (response.ok) {
-        router.push("/recipes/" + responseJson.userId);
+        router.push("/recipes");
       } else {
         setError(true);
         setErrorText(responseJson.message);
