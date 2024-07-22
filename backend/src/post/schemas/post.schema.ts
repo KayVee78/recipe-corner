@@ -27,6 +27,9 @@ export class RecipePost {
 
   @Prop()
   userId: string;
+
+  @Prop()
+  category: string;
 }
 
 export const PostSchema = SchemaFactory.createForClass(RecipePost);

@@ -6,6 +6,7 @@ import {
   Param,
   Delete,
   Put,
+  Query,
 } from '@nestjs/common';
 import { PostService } from './post.service';
 import { RecipePost } from './schemas/post.schema';
@@ -19,13 +20,16 @@ export class PostController {
   }
 
   @Get()
-  findAll() {
-    return this.postService.findAll();
+  findAll(
+    @Query('keyword') keyword?: string,
+    @Query('ingredient') ingredient?: string,
+    @Query('category') category?: string,
+  ) {
+    return this.postService.findAll(keyword, ingredient, category);
   }
-
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.postService.findOne(+id);
+    return this.postService.findOne(id);
   }
 
   @Put(':id')

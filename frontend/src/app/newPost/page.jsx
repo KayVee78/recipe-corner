@@ -14,6 +14,7 @@ const NewPost = () => {
   const [preparationTime, setPreparationTime] = useState("");
   const [cookingTime, setCookingTime] = useState("");
   const [file, setFile] = useState(null);
+  const [category, setCategory] = useState("");
   const [error, setError] = useState(false);
   const [errorText, setErrorText] = useState("");
   const router = useRouter();
@@ -37,6 +38,7 @@ const NewPost = () => {
       instructions,
       preparationTime,
       cookingTime,
+      category,
     };
 
     if (file) {
@@ -44,7 +46,7 @@ const NewPost = () => {
       const filename = Date.now() + file.name;
       data.append("name", filename);
       data.append("file", file);
-      newPost.photo = filename;
+      newPost.photo = file.name;
       try {
         await fetch(`${process.env.NEXT_PUBLIC_BACKEND_APP_URL}/upload`, {
           method: "POST",
@@ -64,9 +66,8 @@ const NewPost = () => {
           body: JSON.stringify(newPost),
         }
       );
+      const responseJson = await response.json();
       if (response.ok) {
-        const responseJson = await response.json();
-        console.log(responseJson);
         router.push("/recipes/" + responseJson.userId);
       } else {
         setError(true);
@@ -104,6 +105,16 @@ const NewPost = () => {
             placeholder="Instructions"
             onChange={(e) => setInstructions(e.target.value)}
           ></textarea>
+          <select
+            name="category"
+            id=""
+            onChange={(e) => setCategory(e.target.value)}
+          >
+            <option value="breakfast">Breakfast</option>
+            <option value="lunch">Lunch</option>
+            <option value="dinner">Dinner</option>
+            <option value="snack">Snack</option>
+          </select>
           <input
             type="text"
             placeholder="Preparation Time"
@@ -119,7 +130,7 @@ const NewPost = () => {
           <button type="submit">Publish</button>
         </form>
         {error && (
-          <span style={{ color: "#b71540", marginTop: "10px" }}>
+          <span style={{ color: "#eb4d4b", marginTop: "10px" }}>
             {errorText || "Something went wrong"}
           </span>
         )}
