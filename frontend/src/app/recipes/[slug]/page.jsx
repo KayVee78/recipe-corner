@@ -73,7 +73,7 @@ const DetailedRecipePage = () => {
     try {
       const updatedData = {
         title,
-        ingredients: ingredientsList,
+        ingredients: ingredientsList.join(","),
         instructions,
         preparationTime: prepTime,
         cookingTime: cookTime,
