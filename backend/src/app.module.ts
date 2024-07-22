@@ -6,6 +6,7 @@ import { Module } from '@nestjs/common';
 import { UsersModule } from './users/users.module';
 import { PostModule } from './post/post.module';
 import { UploadModule } from './upload/upload.module';
+import { ReviewModule } from './review/review.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 
@@ -20,6 +21,7 @@ import { join } from 'path';
     UsersModule,
     PostModule,
     UploadModule,
+    ReviewModule,
   ],
   controllers: [AppController],
   providers: [AppService],
