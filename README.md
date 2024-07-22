@@ -75,11 +75,10 @@ A full-stack application built with Next.js for the frontend, NestJS for the bac
    npm run start:dev
    ```
 
-![Screenshot 2024-07-22 083723](https://github.com/user-attachments/assets/5aa0aca3-ef78-47cd-815e-0d5bd73de053)
 ![Screenshot 2024-07-22 083543](https://github.com/user-attachments/assets/859073d9-a4f3-4181-b1b0-1886a1906390)
-![Screenshot 2024-07-22 083558](https://github.com/user-attachments/assets/26d1e9a1-87d1-467b-93ab-e2099b232469)
 ![Screenshot 2024-07-22 083634](https://github.com/user-attachments/assets/e313a16e-ce1f-47f4-ac2e-6b6b3848e259)
-
+![Screenshot 2024-07-22 083558](https://github.com/user-attachments/assets/26d1e9a1-87d1-467b-93ab-e2099b232469)
+![Screenshot 2024-07-22 083723](https://github.com/user-attachments/assets/5aa0aca3-ef78-47cd-815e-0d5bd73de053)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
