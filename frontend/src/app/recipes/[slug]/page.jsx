@@ -39,17 +39,21 @@ const DetailedRecipePage = () => {
 
   useEffect(() => {
     const getPostDetails = async () => {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_APP_URL}/post/${recipeId}`
-      );
-      const data = await response.json();
-      setTitle(data.title);
-      setIngredientsList(data?.ingredients.split(","));
-      setInstructions(data.instructions);
-      setPrepTime(data.preparationTime);
-      setCookTime(data.cookingTime);
-      setPublishedUser(data.username);
-      setRecipeData(data);
+      if (recipeId) {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_BACKEND_APP_URL}/post/${recipeId}`
+        );
+        const data = await response.json();
+        if (data) {
+          setTitle(data.title);
+          setIngredientsList(data?.ingredients.split(","));
+          setInstructions(data.instructions);
+          setPrepTime(data.preparationTime);
+          setCookTime(data.cookingTime);
+          setPublishedUser(data.username);
+          setRecipeData(data);
+        }
+      }
 
       // setIngredientsArr(ingredientsList.split(","));
     };
@@ -248,7 +252,7 @@ const DetailedRecipePage = () => {
           </span>
         )}
         <br />
-        <ReviewComponent />
+        <ReviewComponent publishedUser={publishedUser} />
       </div>
     </div>
   );
