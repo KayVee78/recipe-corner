@@ -17,25 +17,59 @@ const DetailedRecipePage = () => {
   const [prepTime, setPrepTime] = useState("");
   const [cookTime, setCookTime] = useState("");
   const [ratings, setRatings] = useState("");
+  const [loggedInUser, setLoggedInUser] = useState(null);
+  const [recipeData, setRecipeData] = useState(null);
+  const [publishedUser, setPublishedUser] = useState(null);
+  const [disabled, setDisabled] = useState(false);
 
   const router = useRouter();
+  const currentPath = window.location.href;
+  const recipeId = currentPath.split("/")[4];
+
   useEffect(() => {
     const loggedIn = localStorage.getItem("loggedInUser");
+    setLoggedInUser(JSON.parse(loggedIn));
     if (!loggedIn) {
       router.push("/login");
     }
   }, []);
 
+  useEffect(() => {
+    const getPostDetails = async () => {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_APP_URL}/post/${recipeId}`
+      );
+      const data = await response.json();
+      setTitle(data.title);
+      setIngredientsList(data.ingredients);
+      setInstructions(data.instructions);
+      setPrepTime(data.preparationTime);
+      setCookTime(data.cookingTime);
+      setPublishedUser(data.username);
+      setRecipeData(data);
+    };
+
+    getPostDetails();
+  }, [currentPath]);
+
+  useEffect(() => {
+    if (loggedInUser?.username !== publishedUser) {
+      setDisabled(true);
+    } else {
+      setDisabled(false);
+    }
+  }, [loggedInUser, publishedUser]);
+
   const ingredientString =
     "Sliced cheese (our favorite is thick-sliced, medium cheddar),Dill pickle slices,Fresh red onions (or caramelized onions)Tomato,Green leaf or iceberg lettuce,Avocado,Bacon + pineapple + the BBQ sauce below,Jalapeños to add some heat";
 
-  const ingredients = ingredientString.split(",");
+  const ingredients = ingredientsList.split(",");
 
   return (
     <div className={styles.detailRecipe}>
       <div className={styles.detailRecipeWrapper}>
         <Image
-          src="/home2.png"
+          src={`${process.env.NEXT_PUBLIC_BACKEND_APP_URL}/images/${recipeData?.photo}`}
           width={500}
           height={200}
           alt=""
@@ -52,19 +86,23 @@ const DetailedRecipePage = () => {
         ) : (
           <h1 className={styles.detailRecipeTitle}>
             {/* {title} */}
-            {"Perfect Hamburger Recipe"}
+            {title}
             {/* {post.username === user?.username && ( */}
             <div className={styles.detailRecipeEdit}>
               <FontAwesomeIcon
                 icon={faEdit}
-                className={styles.detailRecipeIcon}
+                className={`${styles.detailRecipeIcon} ${
+                  disabled ? styles.disabled : ""
+                }`}
                 onClick={() => setUpdateMode(true)}
                 style={{ fontSize: "24px" }}
               />
               <FontAwesomeIcon
                 icon={faTrashAlt}
                 style={{ color: "#eb3b5a", fontSize: "24px" }}
-                className={styles.detailRecipeIcon}
+                className={`${styles.detailRecipeIcon} ${
+                  disabled ? styles.disabled : ""
+                }`}
                 onClick={() => console.log("Delete icon clicked")}
               />
             </div>
@@ -76,12 +114,12 @@ const DetailedRecipePage = () => {
             Recipe by:
             {/* <Link to={`/?user=${post.username}`} className="link"> */}
             <Link href={"/test"} className="link">
-              <b> Mary Fernando</b>
+              <b> {publishedUser}</b>
             </Link>
           </span>
           <span className={styles.detailRecipeDate}>
             {/* {new Date(post.createdAt).toDateString()} */}
-            {"2024/12/12"}
+            {/* {"2024/12/12"} */}
           </span>
         </div>
         {updateMode ? (
@@ -132,18 +170,12 @@ const DetailedRecipePage = () => {
               ))}
             </ul>
             <span className={styles.titleHead}>Instructions: </span>
-            <p className={styles.detailRecipeDesc}>
-              Preheat oven to 200°C. Preheat grill on high. Spray a large baking
-              tray with olive oil spray to lightly grease. Place the capsicum,
-              skin-side up, on the prepared tray. Lightly spray with olive oil
-              spray. Cook under grill for 5 minutes or until charred and
-              blistered.
-            </p>
+            <p className={styles.detailRecipeDesc}>{instructions}</p>
             <span className={styles.titleHead}>Preparation Time: </span>
-            <p>1 hour</p>
+            <p>{prepTime}</p>
             <span className={styles.titleHead}>Cooking Time: </span>
-            <p>3 hours</p>
-            <span className={styles.titleHead}>Ratings: </span>
+            <p>{cookTime}</p>
+            {/* <span className={styles.titleHead}>Ratings: </span> */}
           </>
         )}
         {updateMode && (

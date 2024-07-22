@@ -6,11 +6,17 @@ import { Module } from '@nestjs/common';
 import { UsersModule } from './users/users.module';
 import { PostModule } from './post/post.module';
 import { UploadModule } from './upload/upload.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
     MongooseModule.forRoot(process.env.MONGODB_URI),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'images'),
+      serveRoot: '/images',
+    }),
     UsersModule,
     PostModule,
     UploadModule,

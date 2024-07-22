@@ -4,6 +4,7 @@ npm install @nestjs/mongoose mongoose
 npm install @nestjs/config
 npm install multer @nestjs/platform-express
 npm install @types/multer
+npm install @nestjs/serve-static
 
 
 

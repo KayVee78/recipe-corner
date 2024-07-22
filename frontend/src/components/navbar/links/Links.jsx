@@ -8,7 +8,11 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 // import { handleLogout } from "@/lib/actions";
 
-const links = [{ title: "Home Page", path: "/" }];
+const links = [
+  { title: "Home Page", path: "/" },
+  { title: "Search Recipes", path: "/recipes" },
+  { title: "Create New Post", path: "/newPost" },
+];
 
 const Links = ({ session }) => {
   const [open, setOpen] = useState(false);
@@ -25,9 +29,6 @@ const Links = ({ session }) => {
         <>
           {session ? (
             <>
-              <NavLink item={{ title: "Search Recipes", path: "/recipes" }} />
-              <NavLink item={{ title: "Create New Post", path: "/newPost" }} />
-
               <button className={styles.logout} onClick={handleLogout}>
                 <Link href={"/login"}>Logout</Link>
               </button>

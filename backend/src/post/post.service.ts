@@ -21,7 +21,8 @@ export class PostService {
         !post.instructions ||
         !post.preparationTime ||
         !post.cookingTime ||
-        !post.photo
+        !post.photo ||
+        !post.category
       ) {
         throw new ConflictException('Missing required fields!');
       }
@@ -34,6 +35,7 @@ export class PostService {
         username: post.username,
         photo: post.photo,
         userId: post.userId,
+        category: post.category,
       });
       await newPost.save();
       return newPost;
@@ -46,12 +48,47 @@ export class PostService {
     }
   }
 
-  findAll() {
-    return `This action returns all post`;
+  async findAll(
+    keyword?: string,
+    ingredient?: string,
+    category?: string,
+  ): Promise<RecipePost[]> {
+    const query: any = {};
+
+    if (keyword) {
+      query.$or = [
+        { title: { $regex: keyword, $options: 'i' } },
+        { instructions: { $regex: keyword, $options: 'i' } },
+      ];
+    }
+
+    if (ingredient) {
+      query.ingredients = { $regex: ingredient, $options: 'i' };
+    }
+
+    if (category) {
+      query.category = category;
+    }
+
+    return this.postModel.find(query).exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} post`;
+  async findOne(id: string) {
+    try {
+      console.log('id', id);
+
+      const post = await this.postModel.findById(id).exec();
+      if (!post) {
+        throw new NotFoundException('No Recipe Found');
+      }
+      return post;
+    } catch (err) {
+      console.error('No Recipe Found', err);
+      if (err instanceof NotFoundException) {
+        throw err;
+      }
+      throw new InternalServerErrorException('Something went wrong!');
+    }
   }
 
   async update(id: string, updateRecipePost: RecipePost): Promise<RecipePost> {
