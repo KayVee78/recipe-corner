@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 import styles from "./review.module.css";
 
-export const ReviewComponent = ({ publishedUser }) => {
-  console.log(publishedUser);
+export const ReviewComponent = ({ loggedInUser }) => {
+  console.log(loggedInUser);
   //   const reviews = [
   //     {
   //       username: "johnDoe",
@@ -87,7 +87,7 @@ export const ReviewComponent = ({ publishedUser }) => {
     setError(false);
     try {
       const newReview = {
-        username: publishedUser,
+        username: loggedInUser.username,
         review: review,
       };
       const response = await fetch(

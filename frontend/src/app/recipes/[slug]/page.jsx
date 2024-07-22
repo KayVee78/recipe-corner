@@ -252,7 +252,7 @@ const DetailedRecipePage = () => {
           </span>
         )}
         <br />
-        <ReviewComponent publishedUser={publishedUser} />
+        <ReviewComponent loggedInUser={loggedInUser} />
       </div>
     </div>
   );
