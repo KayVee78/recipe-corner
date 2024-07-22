@@ -127,7 +127,7 @@ export const ReviewComponent = ({ loggedInUser }) => {
       {reviewsList.map((review, index) => (
         <div style={{ marginBottom: "15px" }} key={index}>
           <span className={styles.reviewAuthor}>
-            Recipe by:
+            Review by:
             <b>&nbsp;{review.username}</b>
           </span>
           <span>
