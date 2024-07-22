@@ -8,11 +8,12 @@ import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import styles from "./detailedRecipePage.module.css";
 import useAuth from "@/utils/useAuth";
 import { useRouter } from "next/navigation";
+import { ReviewComponent } from "@/components/reviewComponent/ReviewComponent";
 
 const DetailedRecipePage = () => {
   const [updateMode, setUpdateMode] = useState(false);
   const [title, setTitle] = useState("");
-  const [ingredientsList, setIngredientsList] = useState("");
+  const [ingredientsList, setIngredientsList] = useState([]);
   const [instructions, setInstructions] = useState("");
   const [prepTime, setPrepTime] = useState("");
   const [cookTime, setCookTime] = useState("");
@@ -21,6 +22,8 @@ const DetailedRecipePage = () => {
   const [recipeData, setRecipeData] = useState(null);
   const [publishedUser, setPublishedUser] = useState(null);
   const [disabled, setDisabled] = useState(false);
+  const [error, setError] = useState(false);
+  const [errorText, setErrorText] = useState("");
 
   const router = useRouter();
   const currentPath = window.location.href;
@@ -41,12 +44,14 @@ const DetailedRecipePage = () => {
       );
       const data = await response.json();
       setTitle(data.title);
-      setIngredientsList(data.ingredients);
+      setIngredientsList(data?.ingredients.split(","));
       setInstructions(data.instructions);
       setPrepTime(data.preparationTime);
       setCookTime(data.cookingTime);
       setPublishedUser(data.username);
       setRecipeData(data);
+
+      // setIngredientsArr(ingredientsList.split(","));
     };
 
     getPostDetails();
@@ -60,10 +65,72 @@ const DetailedRecipePage = () => {
     }
   }, [loggedInUser, publishedUser]);
 
+  const handleUpdate = async () => {
+    try {
+      const updatedData = {
+        title,
+        ingredients: ingredientsList,
+        instructions,
+        preparationTime: prepTime,
+        cookingTime: cookTime,
+      };
+
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_APP_URL}/post/${recipeId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(updatedData),
+        }
+      );
+
+      const data = await response.json();
+      if (response.ok) {
+        setTitle(data.title);
+        setIngredientsList(data.ingredients.split(","));
+        setInstructions(data.instructions);
+        setCookTime(data.cookingTime);
+        setPrepTime(data.preparationTime);
+        setUpdateMode(false);
+      } else {
+        setError(true);
+        setErrorText(data.message);
+      }
+    } catch (err) {
+      console.error(err);
+      setError(true);
+    }
+  };
+
+  const handleDelete = async () => {
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_APP_URL}/post/${recipeId}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      const data = await response.json();
+      if (response.ok) {
+        window.location.replace("/recipes");
+      } else {
+        setError(true);
+        setErrorText(data.message);
+      }
+    } catch (err) {
+      console.error(err);
+      setError(true);
+    }
+  };
+
   const ingredientString =
     "Sliced cheese (our favorite is thick-sliced, medium cheddar),Dill pickle slices,Fresh red onions (or caramelized onions)Tomato,Green leaf or iceberg lettuce,Avocado,Bacon + pineapple + the BBQ sauce below,Jalapeños to add some heat";
-
-  const ingredients = ingredientsList.split(",");
 
   return (
     <div className={styles.detailRecipe}>
@@ -103,7 +170,7 @@ const DetailedRecipePage = () => {
                 className={`${styles.detailRecipeIcon} ${
                   disabled ? styles.disabled : ""
                 }`}
-                onClick={() => console.log("Delete icon clicked")}
+                onClick={handleDelete}
               />
             </div>
             {/* )} */}
@@ -137,7 +204,7 @@ const DetailedRecipePage = () => {
               onChange={(e) => setInstructions(e.target.value)}
             />
             <input
-              type="time"
+              type="text"
               value={prepTime}
               className={styles.detailRecipeTitleInput}
               autoFocus
@@ -145,27 +212,19 @@ const DetailedRecipePage = () => {
               onChange={(e) => setPrepTime(e.target.value)}
             />
             <input
-              type="time"
+              type="text"
               value={cookTime}
               className={styles.detailRecipeTitleInput}
               autoFocus
               style={{ marginBottom: "14px" }}
               onChange={(e) => setCookTime(e.target.value)}
             />
-            <input
-              type="range"
-              value={ratings}
-              className={styles.detailRecipeTitleInput}
-              autoFocus
-              style={{ marginBottom: "14px" }}
-              onChange={(e) => setRatings(e.target.value)}
-            />
           </>
         ) : (
           <>
             <span className={styles.titleHead}>Ingredients: </span>
             <ul>
-              {ingredients.map((item, index) => (
+              {ingredientsList.map((item, index) => (
                 <li key={index}>{`◽ ${item.trim()}`}</li>
               ))}
             </ul>
@@ -179,10 +238,17 @@ const DetailedRecipePage = () => {
           </>
         )}
         {updateMode && (
-          <button className={styles.detailRecipeButton} onClick={""}>
+          <button className={styles.detailRecipeButton} onClick={handleUpdate}>
             Update
           </button>
         )}
+        {error && (
+          <span style={{ color: "#b71540", marginTop: "10px" }}>
+            {errorText || "Something went wrong"}
+          </span>
+        )}
+        <br />
+        <ReviewComponent />
       </div>
     </div>
   );
