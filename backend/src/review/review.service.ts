@@ -1,5 +1,8 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
-import { UpdateReviewDto } from './dto/update-review.dto';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { Review } from './schemas/review.schema';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
@@ -9,12 +12,14 @@ export class ReviewService {
   constructor(
     @InjectModel('Review') private readonly reviewModel: Model<Review>,
   ) {}
+
   async create(review: Review): Promise<Review> {
     try {
-      if (!review.review || !review.username) {
+      if (!review.review || !review.username || !review.recipeId) {
         throw new InternalServerErrorException('Something went wrong!');
       }
       const newReview = new this.reviewModel({
+        recipeId: review.recipeId,
         review: review.review,
         username: review.username,
       });
@@ -30,15 +35,19 @@ export class ReviewService {
     return this.reviewModel.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} review`;
-  }
-
-  update(id: number, updateReviewDto: UpdateReviewDto) {
-    return `This action updates a #${id} review`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} review`;
+  async findOne(recipeId: string): Promise<Review[]> {
+    try {
+      const reviews = await this.reviewModel.find({ recipeId }).exec();
+      if (!reviews) {
+        throw new NotFoundException('No Review Found');
+      }
+      return reviews;
+    } catch (err) {
+      console.error('No Review Found', err);
+      if (err instanceof NotFoundException) {
+        throw err;
+      }
+      throw new InternalServerErrorException('Something went wrong!');
+    }
   }
 }

@@ -48,26 +48,60 @@ export class PostService {
     }
   }
 
+  // async findAll(
+  //   keyword?: string,
+  //   ingredient?: string,
+  //   category?: string,
+  // ): Promise<RecipePost[]> {
+  //   const query: any = {};
+
+  //   if (keyword) {
+  //     query.$or = [
+  //       { title: { $regex: keyword, $options: 'i' } },
+  //       { instructions: { $regex: keyword, $options: 'i' } },
+  //     ];
+  //   }
+
+  //   if (ingredient) {
+  //     query.ingredients = { $regex: ingredient, $options: 'i' };
+  //   }
+
+  //   if (category) {
+  //     query.category = category;
+  //   }
+
+  //   return this.postModel.find(query).exec();
+  // }
+
   async findAll(
     keyword?: string,
     ingredient?: string,
     category?: string,
   ): Promise<RecipePost[]> {
     const query: any = {};
+    const searchConditions: any[] = [];
 
     if (keyword) {
-      query.$or = [
-        { title: { $regex: keyword, $options: 'i' } },
-        { instructions: { $regex: keyword, $options: 'i' } },
-      ];
+      searchConditions.push({
+        $or: [
+          { title: { $regex: keyword, $options: 'i' } },
+          { instructions: { $regex: keyword, $options: 'i' } },
+        ],
+      });
     }
 
     if (ingredient) {
-      query.ingredients = { $regex: ingredient, $options: 'i' };
+      searchConditions.push({
+        ingredients: { $regex: ingredient, $options: 'i' },
+      });
     }
 
     if (category) {
-      query.category = category;
+      searchConditions.push({ category });
+    }
+
+    if (searchConditions.length > 0) {
+      query.$and = searchConditions;
     }
 
     return this.postModel.find(query).exec();
@@ -75,8 +109,6 @@ export class PostService {
 
   async findOne(id: string) {
     try {
-      console.log('id', id);
-
       const post = await this.postModel.findById(id).exec();
       if (!post) {
         throw new NotFoundException('No Recipe Found');
