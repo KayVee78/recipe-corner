@@ -252,7 +252,9 @@ const DetailedRecipePage = () => {
           </span>
         )}
         <br />
-        <ReviewComponent loggedInUser={loggedInUser} />
+        {recipeId && (
+          <ReviewComponent loggedInUser={loggedInUser} recipeId={recipeId} />
+        )}
       </div>
     </div>
   );

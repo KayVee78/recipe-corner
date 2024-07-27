@@ -9,6 +9,9 @@ export class Review {
 
   @Prop()
   review: string;
+
+  @Prop()
+  recipeId: string;
 }
 
 export const ReviewSchema = SchemaFactory.createForClass(Review);

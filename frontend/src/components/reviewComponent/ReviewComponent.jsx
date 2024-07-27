@@ -3,8 +3,7 @@
 import { useEffect, useState } from "react";
 import styles from "./review.module.css";
 
-export const ReviewComponent = ({ loggedInUser }) => {
-  console.log(loggedInUser);
+export const ReviewComponent = ({ loggedInUser, recipeId }) => {
   //   const reviews = [
   //     {
   //       username: "johnDoe",
@@ -65,12 +64,14 @@ export const ReviewComponent = ({ loggedInUser }) => {
   useEffect(() => {
     const getReviewsList = async () => {
       try {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_APP_URL}/review`
-        );
-        if (response.ok) {
-          const responseData = await response.json();
-          setReviewsList(responseData);
+        if (recipeId) {
+          const response = await fetch(
+            `${process.env.NEXT_PUBLIC_BACKEND_APP_URL}/review/${recipeId}`
+          );
+          if (response.ok) {
+            const responseData = await response.json();
+            setReviewsList(responseData);
+          }
         }
       } catch (error) {
         console.error("Error fetching reviews:", error);
@@ -89,6 +90,7 @@ export const ReviewComponent = ({ loggedInUser }) => {
       const newReview = {
         username: loggedInUser.username,
         review: review,
+        recipeId: recipeId,
       };
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_BACKEND_APP_URL}/review`,

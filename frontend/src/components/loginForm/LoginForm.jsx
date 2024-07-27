@@ -2,13 +2,17 @@
 
 import Link from "next/link";
 import styles from "./loginForm.module.css";
-import { useRef, useContext, useState } from "react";
+import { useRef, useContext, useState, useEffect } from "react";
 
 const LoginForm = () => {
   const usernameRef = useRef();
   const passwordRef = useRef();
   const [error, setError] = useState(false);
   const [errorText, setErrorText] = useState("");
+
+  useEffect(() => {
+    localStorage.removeItem("loggedInUser");
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

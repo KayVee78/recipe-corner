@@ -4,7 +4,7 @@ npm install @nestjs/mongoose mongoose
 npm install @nestjs/config
 npm install multer @nestjs/platform-express
 npm install @types/multer
-npm install @nestjs/serve-static
+npm install @nestjs/serve-static ->serve static files from your NestJS application, such as your frontend assets, images, or any other static resources.
 
 
 

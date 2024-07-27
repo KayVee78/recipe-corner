@@ -4,6 +4,8 @@ import ImageSlider from "@/components/imageSlider/ImageSlider";
 import styles from "./home.module.css";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 const slides = [
   { url: "http://localhost:3000/home1.png" },
@@ -13,6 +15,20 @@ const slides = [
 ];
 
 const HomePage = () => {
+  const [disabled, setDisabled] = useState(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (localStorage.getItem("loggedInUser")) {
+      setDisabled(true);
+    }
+  }, []);
+
+  const handleButtonClick = (e) => {
+    e.preventDefault();
+    router.push("/login");
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.imageContainer}>
@@ -36,11 +52,16 @@ const HomePage = () => {
           style={{ justifyContent: "center" }}
           className={styles.buttonContainer}
         >
-          <Link href="/login">
-            <button className={`${styles.button} ${styles.buttonLogin}`}>
+          <form onSubmit={handleButtonClick}>
+            <button
+              className={`${styles.button} ${styles.buttonLogin} ${
+                disabled && styles.disabled
+              }`}
+              disabled={disabled}
+            >
               Join Now
             </button>
-          </Link>
+          </form>
           {/* <Link href="/contact">
             <button className={`${styles.button} ${styles.buttonRegister}`}>
               Register

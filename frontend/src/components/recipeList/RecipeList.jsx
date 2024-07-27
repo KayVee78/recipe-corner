@@ -5,7 +5,6 @@ import Image from "next/image";
 
 const RecipeList = ({ recipeList }) => {
   const recipes = recipeList;
-  console.log(recipeList);
   return (
     <div className="flex gap-x-8 gap-y-16 justify-between flex-wrap">
       {recipes.map((recipe) => (
